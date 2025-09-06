@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 
 function Dashboard() {
   const [backendStatus, setBackendStatus] = useState("Checking...");
-  const [frontendStatus, setFrontendStatus] = useState("Working");
+  const frontendStatus = "Working"; // no setState needed
 
   useEffect(() => {
-    // Call your backend health endpoint
     fetch("http://localhost:5000/api/health") // replace with your backend URL
       .then((res) => res.json())
       .then((data) => {
@@ -15,7 +14,7 @@ function Dashboard() {
           setBackendStatus("Error ❌");
         }
       })
-      .catch((err) => setBackendStatus("Error ❌"));
+      .catch(() => setBackendStatus("Error ❌")); // remove 'err'
   }, []);
 
   return (
