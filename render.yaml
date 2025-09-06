@@ -6,9 +6,9 @@ services:
     buildCommand: "cd backend && npm install"
     startCommand: "cd backend && npm start"
     envVars:
-      - key: DATABASE_URL
+      - key: postgresql://shodhanshetty:lB1t57nekHmxOeI3hQ3hEh5N6NdoXXmG@dpg-d2trqm95pdvs739rugvg-a/dbfinwise_g10w
         sync: false
-      - key: JWT_SECRET
+      - key: shodhanshetty123
         sync: false
     autoDeploy: true
 
