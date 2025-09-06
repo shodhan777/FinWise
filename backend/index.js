@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get("/api/health", (req, res) => {
+  res.json({ status: "Backend is working ✅" });
+});
 // Test route
 app.get("/", (req, res) => {
   res.send("FinWise backend is running 🚀");

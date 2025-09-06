@@ -1,39 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// Define TypeScript types for your data
-interface Expense {
-  id: number;
-  category: string;
-  amount: number;
-  description?: string;
-  date?: string;
-}
-
-const Dashboard: React.FC = () => {
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+const App: React.FC = () => {
+  const [backendStatus, setBackendStatus] = useState<string>("Checking...");
 
   useEffect(() => {
     const API_URL = import.meta.env.VITE_API_URL as string;
 
     axios
-      .get<Expense[]>(`${API_URL}/api/expenses`)
-      .then((res) => setExpenses(res.data))
-      .catch((err) => console.error(err));
+      .get(`${API_URL}/api/health`)
+      .then((res) => setBackendStatus(res.data.status))
+      .catch((err) => setBackendStatus("Backend not reachable ❌"));
   }, []);
 
   return (
-    <div>
-      <h1>My Expenses</h1>
-      <ul>
-        {expenses.map((expense) => (
-          <li key={expense.id}>
-            {expense.category}: ₹{expense.amount}
-          </li>
-        ))}
-      </ul>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Frontend is working ✅</h1>
+      <h2>{backendStatus}</h2>
     </div>
   );
 };
 
-export default Dashboard;
+export default App;
