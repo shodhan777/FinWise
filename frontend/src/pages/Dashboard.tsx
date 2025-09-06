@@ -1,24 +1,36 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 
-const App: React.FC = () => {
-  const [backendStatus, setBackendStatus] = useState<string>("Checking...");
+function Dashboard() {
+  const [backendStatus, setBackendStatus] = useState("Checking...");
+  const [frontendStatus, setFrontendStatus] = useState("Working");
 
   useEffect(() => {
-    const API_URL = import.meta.env.VITE_API_URL as string;
-
-    axios
-      .get(`${API_URL}/api/health`)
-      .then((res) => setBackendStatus(res.data.status))
-      .catch((err) => setBackendStatus("Backend not reachable ❌"));
+    // Call your backend health endpoint
+    fetch("http://localhost:5000/api/health") // replace with your backend URL
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "Backend is working ✅") {
+          setBackendStatus("Working ✅");
+        } else {
+          setBackendStatus("Error ❌");
+        }
+      })
+      .catch((err) => setBackendStatus("Error ❌"));
   }, []);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Frontend is working ✅</h1>
-      <h2>{backendStatus}</h2>
+    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
+      <h1>Dashboard</h1>
+      <div>
+        <p>
+          <strong>Frontend:</strong> {frontendStatus}
+        </p>
+        <p>
+          <strong>Backend:</strong> {backendStatus}
+        </p>
+      </div>
     </div>
   );
-};
+}
 
-export default App;
+export default Dashboard;
