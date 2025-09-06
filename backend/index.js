@@ -2,6 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
+
+import authRoutes from "./routes/authRoutes.js";
+
+
+
+
 dotenv.config();
 
 const app = express();
@@ -18,6 +24,14 @@ app.get("/api/health", (req, res) => {
 app.get("/", (req, res) => {
   res.send("FinWise backend is running 🚀");
 });
+
+
+
+
+app.use("/api/auth", authRoutes);
+
+
+
 
 // Start server
 app.listen(PORT, () => {
