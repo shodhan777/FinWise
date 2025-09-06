@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: finwise-backend
+    env: node
+    plan: free
+    buildCommand: "cd backend && npm install"
+    startCommand: "cd backend && npm start"
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+    autoDeploy: true
+
+  - type: web
+    name: finwise-frontend
+    env: node
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npm run preview -- --port 10000"
+    envVars: []
+    autoDeploy: true
