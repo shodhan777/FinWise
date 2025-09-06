@@ -5,7 +5,7 @@ function Dashboard() {
   const frontendStatus = "Working"; // no setState needed
 
   useEffect(() => {
-    fetch("https://finwise-backend-ilo4.onrender.com/api/health") // replace with your backend URL
+    fetch("http://localhost:5000/api/health") // replace with your backend URL
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "Backend is working ✅") {
