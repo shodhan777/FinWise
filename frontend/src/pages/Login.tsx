@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleLogin = async (email: string, password: string) => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
@@ -14,7 +17,7 @@ const Login: React.FC = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         alert("Login successful ✅");
-        // redirect to dashboard
+        navigate("/"); // 👈 Redirect to Home
       } else {
         alert(data.message || "Login failed ❌");
       }
@@ -24,11 +27,7 @@ const Login: React.FC = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <AuthForm type="login" onSubmit={handleLogin} />
-    </div>
-  );
+  return <AuthForm type="login" onSubmit={handleLogin} />;
 };
 
 export default Login;

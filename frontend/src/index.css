@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@utility flex-center{
+  @apply flex justify-center items-center ;
+}
+@utility full-screen {
+  @apply w-screen h-screen overflow-x-hidden;
+}
+@utility glass {
+  @apply bg-white/10 backdrop-blur-md;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

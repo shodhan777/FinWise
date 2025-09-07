@@ -4,7 +4,7 @@ import { createUser, findUserByEmail } from "../models/userModels.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const {  name,email, password} = req.body;
 
     const existingUser = await findUserByEmail(email);
     if (existingUser) return res.status(400).json({ msg: "User already exists" });
@@ -12,9 +12,16 @@ export const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await createUser(name, email, hashedPassword);
+    const user = await createUser(name,email, hashedPassword);
 
-    res.status(201).json({ msg: "User registered", user: { id: user.id, email: user.email } });
+    res.status(201).json({
+      msg: "User registered",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -32,7 +39,14 @@ export const loginUser = async (req, res) => {
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-    res.json({ token, user: { id: user.id, email: user.email } });
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
