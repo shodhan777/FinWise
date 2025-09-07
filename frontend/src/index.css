@@ -1,5 +1,4 @@
-@import "tailwindcss/preflight"; /* replaces base */
-@import "tailwindcss/utilities";             /* utilities still exist */
+@import "tailwindcss";
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
